@@ -7,14 +7,14 @@ class Pipeline:
 
     def __init__(self, file):
         self.file = file
-        # stores the raw data
+
         self.dfI = pd.read_csv(file,index_col=0)
         
         
         
         self.num_rows = self.dfI.shape[0]
         self.num_columns = self.dfI.shape[1]
-        # stores the properly formatted data
+
         
 
         self.clean_data()
@@ -26,12 +26,10 @@ class Pipeline:
         self.gen_dfF()
         print(self.dfF)
         self.dfF.to_csv("training2.csv")
-       
-    # WL at index 8 and 17
+
     def calculate_wl(self, column):
         
-        #switch row and c
-        #record1 = self.dfI.iloc[column][int(((self.num_rows-1)/2)-1)]
+        
         record1 = self.dfI.iloc[int(((self.num_rows-1)/2)-1)][column]
         record2 = self.dfI.iloc[self.num_rows-2][column]
         self.dfI.iloc[int(((self.num_rows-1)/2)-1)][column] = self.format_wl(record1)
@@ -58,7 +56,7 @@ class Pipeline:
             print(c)
             self.calculate_wl(c)
             for r in range(0, self.num_rows-1):
-                # replace rs with c and numrows with numcolumns 
+                
                 if r == (((self.num_rows-1)/2)-1) or r == (self.num_rows-2):
                     continue
                 else:
@@ -66,13 +64,13 @@ class Pipeline:
         
                     
                     
-    # removes the labels from the raw data
+
     def remove_labels(self,s):
         stat = float(re.findall(r"[-+]?\d*\.\d+|\d+", str(s))[0])
         
         return stat
 #---------------------------dfF functions--------------------------------------    
-    #use indexing to get the entire row
+
     def z_score(self, arr, x):
         arr = np.array(arr).astype(float)
         stdev = np.std(arr)
@@ -81,9 +79,9 @@ class Pipeline:
 
     def get_fight_outcome(self):
         outcomes = []
-        #change shape to 0
+      
         for c in range(self.dfI.shape[0]):
-            #change to iloc [r][numc]
+
             if self.dfI.iloc[c][self.num_rows].upper() == "W":
                 outcomes.append(1)
             else:

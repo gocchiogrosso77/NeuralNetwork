@@ -1,0 +1,14 @@
+#install.packages("caTools")
+#install.packages("ROCR")    
+#library(caTools)
+#library(ROCR)
+
+df = read.csv("C:/Users/gocch/Desktop/NeuralNetwork/Rdata.csv")
+
+#sample <- sample(df,nrow(df), replace=T, prob=c(0.7))
+#train <- data[sample, ]
+#test <- data[!sample, ]
+model <- glm(Outcome ~  Reach1+SLpM1+StrAcc1+SApM1+StrDef1+TDAvg1+TDAcc1+TDDef1+SubAvg1+Record1+Reach2+SLpM2+StrAcc2+SApM2+StrDef2+TDAvg2+TDAcc2+TDDef2+SubAvg2+Record2 
+, family="binomial", data=df) 
+
+summary(model)
